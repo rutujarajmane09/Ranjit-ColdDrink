@@ -1,8 +1,8 @@
 // ═══════════════════════════════
 // STATE
 // ═══════════════════════════════
-const CREDS = { username:'owner', password:'admin123' };
-const SHOP = { name:'FrostBite Cold Drinks', address:'123 Market Street, Gujarat', phone:'+91 98765 43210', gst:'27ABCDE1234F1Z5' };
+const CREDS = { username:'Ranjit', password:'admin@123' };
+const SHOP = { name:'Ranjit-Cold-Drinks', address:'Mohol', phone:''};
 
 let state = {
   items: JSON.parse(localStorage.getItem('fb_items') || 'null') || getDefaultItems(),
@@ -20,19 +20,19 @@ function save() {
 
 function getDefaultItems() {
   return [
-    { id:uid(), name:'Coca Cola', cat:'Cold Drinks', price:40, emoji:'🥤' },
-    { id:uid(), name:'Pepsi', cat:'Cold Drinks', price:35, emoji:'🥤' },
-    { id:uid(), name:'Sprite', cat:'Cold Drinks', price:35, emoji:'🫧' },
-    { id:uid(), name:'Limca', cat:'Cold Drinks', price:30, emoji:'🍋' },
-    { id:uid(), name:'Thums Up', cat:'Cold Drinks', price:40, emoji:'👍' },
-    { id:uid(), name:'Maaza', cat:'Juices', price:30, emoji:'🥭' },
-    { id:uid(), name:'Real Juice Orange', cat:'Juices', price:45, emoji:'🍊' },
-    { id:uid(), name:'Lassi', cat:'Shakes', price:50, emoji:'🥛' },
-    { id:uid(), name:'Chocolate Shake', cat:'Shakes', price:70, emoji:'🍫' },
-    { id:uid(), name:'Vanilla Ice Cream', cat:'Ice Cream', price:40, emoji:'🍦' },
-    { id:uid(), name:'Samosa', cat:'Snacks', price:15, emoji:'🥟' },
-    { id:uid(), name:'Biscuit Pack', cat:'Snacks', price:20, emoji:'🍪' },
-    { id:uid(), name:'Mineral Water', cat:'Water', price:20, emoji:'💧' },
+    { id:uid(), name:'Coca Cola', cat:'Cold Drinks', price:40},
+    { id:uid(), name:'Pepsi', cat:'Cold Drinks', price:35},
+    { id:uid(), name:'Sprite', cat:'Cold Drinks', price:35},
+    { id:uid(), name:'Limca', cat:'Cold Drinks', price:30,},
+    { id:uid(), name:'Thums Up', cat:'Cold Drinks', price:40},
+    { id:uid(), name:'Maaza', cat:'Juices', price:30},
+    { id:uid(), name:'Real Juice Orange', cat:'Juices', price:45},
+    { id:uid(), name:'Lassi', cat:'Shakes', price:50},
+    { id:uid(), name:'Chocolate Shake', cat:'Shakes', price:70},
+    { id:uid(), name:'Vanilla Ice Cream', cat:'Ice Cream', price:40},
+    { id:uid(), name:'Samosa', cat:'Snacks', price:15},
+    { id:uid(), name:'Biscuit Pack', cat:'Snacks', price:20 },
+    { id:uid(), name:'Mineral Water', cat:'Water', price:20 },
   ];
 }
 
@@ -161,7 +161,7 @@ function renderDashboard() {
       <div class="item-cat"><span class="badge badge-cyan">${item.cat}</span></div>
       <div class="item-price">${fmt(item.price)}</div>
       <div class="item-actions">
-        <button class="btn btn-ghost btn-sm" onclick="editItem('${item.id}')">✏️ Edit</button>
+        <button class="btn btn-ghost btn-sm" onclick="editItem('${item.id}')"> Edit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">🗑</button>
       </div>
     </div>
@@ -179,24 +179,24 @@ function clearForm() {
   ['f-name','f-price','f-emoji'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='Cold Drinks';
   document.getElementById('f-edit-id').value='';
-  document.getElementById('form-title').textContent='➕ Add New Item';
+  document.getElementById('form-title').textContent='Add New Item';
 }
 
 function saveItem() {
   const name = document.getElementById('f-name').value.trim();
   const cat = document.getElementById('f-cat').value;
   const price = parseFloat(document.getElementById('f-price').value);
-  const emoji = document.getElementById('f-emoji').value.trim() || '🥤';
+  // const emoji = document.getElementById('f-emoji').value.trim() || '';
   const editId = document.getElementById('f-edit-id').value;
   if(!name) { toast('Item name is required','error'); return; }
   if(isNaN(price)||price<0) { toast('Enter a valid price','error'); return; }
   if(editId) {
     const i = state.items.findIndex(x=>x.id===editId);
     state.items[i] = { id:editId, name, cat, price, emoji };
-    toast('Item updated ✅','success');
+    toast('Item updated ','success');
   } else {
     state.items.push({ id:uid(), name, cat, price, emoji });
-    toast('Item added ✅','success');
+    toast('Item added ','success');
   }
   save(); renderDashboard(); renderDashboardStats(); cancelItemForm();
 }
@@ -376,7 +376,7 @@ function buildBillHTML(order) {
   return `
     <div class="bill-shop-name">${SHOP.name}</div>
     <div class="bill-sub">${SHOP.address}</div>
-    <div class="bill-sub">📞 ${SHOP.phone}</div>
+    <div class="bill-sub"> ${SHOP.phone}</div>
     ${order.gst>0?`<div class="bill-sub">GST: ${SHOP.gst}</div>`:''}
     <hr class="bill-divider">
     <div class="bill-meta">Order: <strong>${order.id}</strong></div>
@@ -393,7 +393,7 @@ function buildBillHTML(order) {
     ${order.gstAmt>0?`<div class="bill-gst-row"><span>GST (${order.gst}%)</span><span>+ ${fmt(order.gstAmt)}</span></div>`:''}
     <div class="bill-grand"><span>GRAND TOTAL</span><span>${fmt(order.total)}</span></div>
     <div class="bill-footer-text" style="margin-top:16px;">
-      Thank you for visiting ${SHOP.name}! 🧊<br>
+      Thank you for visiting ${SHOP.name}! <br>
       Come again & stay cool!
     </div>
   `;
@@ -419,7 +419,7 @@ function buildPrintHTML(order) {
     ${order.gstAmt>0?`<div class="print-row"><span>GST (${order.gst}%)</span><span>+${fmt(order.gstAmt)}</span></div>`:''}
     <div class="print-row print-total"><span>TOTAL</span><span>${fmt(order.total)}</span></div>
     <div class="print-line"></div>
-    <div style="text-align:center;margin-top:8px;">Thank you! Come again 🧊</div>
+    <div style="text-align:center;margin-top:8px;">Thank you! Come again </div>
   `;
 }
 
@@ -465,7 +465,7 @@ function renderHistory() {
       <div class="order-card-header">
         <div>
           <div class="order-id">${o.id}</div>
-          <div style="font-weight:600;margin-top:4px;">👤 ${o.customer}</div>
+          <div style="font-weight:600;margin-top:4px;"> ${o.customer}</div>
         </div>
         <div style="text-align:right">
           <div class="order-time">${fmtDate(o.timestamp)}</div>
@@ -476,8 +476,8 @@ function renderHistory() {
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         ${o.discAmt>0?`<span class="badge badge-orange">Discount ${o.disc}%</span>`:''}
         ${o.gstAmt>0?`<span class="badge badge-cyan">GST ${o.gst}%</span>`:''}
-        <button class="btn btn-ghost btn-sm" onclick='reprintBill(${JSON.stringify(o).replace(/'/g,"&apos;")})'>🧾 View Bill</button>
-        <button class="btn btn-ghost btn-sm" onclick='reprintBillPrint(${JSON.stringify(o).replace(/'/g,"&apos;")})'>🖨 Print</button>
+        <button class="btn btn-ghost btn-sm" onclick='reprintBill(${JSON.stringify(o).replace(/'/g,"&apos;")})'> View Bill</button>
+        <button class="btn btn-ghost btn-sm" onclick='reprintBillPrint(${JSON.stringify(o).replace(/'/g,"&apos;")})'> Print</button>
       </div>
     </div>
   `).join('');
@@ -521,7 +521,7 @@ function renderSummary() {
     </div>
     ${topItems.length ? `
     <div class="card summary-card">
-      <h3 style="margin-bottom:16px;font-size:18px;color:var(--frost);">📊 Item Breakdown</h3>
+      <h3 style="margin-bottom:16px;font-size:18px;color:var(--frost);"> Item Breakdown</h3>
       ${topItems.map(i=>`
         <div class="summary-row">
           <span>${i.emoji} ${i.name}</span>
