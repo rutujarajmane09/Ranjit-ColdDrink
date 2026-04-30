@@ -26,8 +26,8 @@
 <div id="login-page" class="page active">
   <div class="login-box card">
     <div class="login-logo">
-      <span class="icon">🧊</span>
-      <h1>FROSTBITE</h1>
+      <span class="icon"></span>
+      <h1>WELCOME!</h1>
       <p>Cold Drink Shop Management</p>
     </div>
     <div class="login-form">
@@ -39,11 +39,11 @@
         <label>Password</label>
         <input type="password" id="login-pass" class="input" placeholder="Enter password">
       </div>
-      <button class="btn btn-primary btn-lg btn-block" onclick="doLogin()">🔑 Sign In</button>
+      <button class="btn btn-primary btn-lg btn-block" onclick="doLogin()">Sign In</button>
       <div class="login-divider">default credentials</div>
-      <div class="credentials-hint">
+      <!-- <div class="credentials-hint">
         Username: <code>owner</code> &nbsp;|&nbsp; Password: <code>admin123</code>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -55,33 +55,33 @@
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-brand">
-      <span>🧊 FROSTBITE</span>
+      <span>RANJIT-SHOP</span>
     </div>
     <div class="topbar-nav">
-      <button class="nav-btn active" onclick="showTab('dashboard')">📋 Menu</button>
-      <button class="nav-btn" onclick="showTab('order')">🛒 New Order</button>
-      <button class="nav-btn" onclick="showTab('history')">📜 Orders</button>
-      <button class="nav-btn" onclick="showTab('summary')">📊 Summary</button>
+      <button class="nav-btn active" onclick="showTab('dashboard')">Menu</button>
+      <button class="nav-btn" onclick="showTab('order')">New Order</button>
+      <button class="nav-btn" onclick="showTab('history')">Orders</button>
+      <button class="nav-btn" onclick="showTab('summary')">Summary</button>
     </div>
     <div class="topbar-right">
       <div class="clock" id="clock"></div>
-      <button class="btn btn-ghost btn-sm" onclick="doLogout()">⏏ Logout</button>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()">Logout</button>
     </div>
   </div>
 
   <!-- MOBILE NAV -->
   <div class="app-tabs" id="mobile-tabs">
-    <button class="tab active" onclick="showTab('dashboard')">📋 Menu</button>
-    <button class="tab" onclick="showTab('order')">🛒 Order</button>
-    <button class="tab" onclick="showTab('history')">📜 History</button>
-    <button class="tab" onclick="showTab('summary')">📊 Summary</button>
+    <button class="tab active" onclick="showTab('dashboard')">Menu</button>
+    <button class="tab" onclick="showTab('order')">Order</button>
+    <button class="tab" onclick="showTab('history')">History</button>
+    <button class="tab" onclick="showTab('summary')">Summary</button>
   </div>
 
   <!-- ── TAB: DASHBOARD ── -->
   <div id="tab-dashboard" class="section app-module active">
     <div class="section-header">
       <h2 class="section-title">Menu Management</h2>
-      <button class="btn btn-primary" onclick="toggleItemForm()">➕ Add Item</button>
+      <button class="btn btn-primary" onclick="toggleItemForm()">Add Item</button>
     </div>
 
     <!-- Stats -->
@@ -89,7 +89,7 @@
 
     <!-- Add/Edit Form -->
     <div class="card item-form" id="item-form" style="display:none;">
-      <h3 id="form-title">➕ Add New Item</h3>
+      <h3 id="form-title">Add New Item</h3>
       <div class="form-grid">
         <div class="input-group">
           <label>Item Name</label>
@@ -98,13 +98,13 @@
         <div class="input-group">
           <label>Category</label>
           <select id="f-cat" class="input">
-            <option value="Cold Drinks">🥤 Cold Drinks</option>
-            <option value="Juices">🍹 Juices</option>
-            <option value="Shakes">🥛 Milkshakes</option>
-            <option value="Snacks">🍟 Snacks</option>
-            <option value="Ice Cream">🍦 Ice Cream</option>
-            <option value="Water">💧 Water</option>
-            <option value="Other">📦 Other</option>
+            <option value="Cold Drinks">Cold Drinks</option>
+            <option value="Juices">Juices</option>
+            <option value="Shakes">Milkshakes</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Ice Cream">Ice Cream</option>
+            <option value="Water">Water</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <div class="input-group">
@@ -113,12 +113,12 @@
         </div>
         <div class="input-group">
           <label>Emoji Icon</label>
-          <input id="f-emoji" class="input" placeholder="🥤" maxlength="4">
+          <!-- <input id="f-emoji" class="input" placeholder="🥤" maxlength="4"> -->
         </div>
       </div>
       <input type="hidden" id="f-edit-id">
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-green" onclick="saveItem()">💾 Save Item</button>
+        <button class="btn btn-green" onclick="saveItem()">Save Item</button>
         <button class="btn btn-ghost" onclick="cancelItemForm()">Cancel</button>
       </div>
     </div>
@@ -132,21 +132,21 @@
     <div class="order-layout">
       <div class="order-menu">
         <div style="margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-          <input class="input" id="item-search" placeholder="🔍 Search items..." style="flex:1;min-width:180px;" oninput="renderOrderMenu()">
+          <input class="input" id="item-search" placeholder="Search items..." style="flex:1;min-width:180px;" oninput="renderOrderMenu()">
         </div>
         <div class="cat-filter" id="cat-filter"></div>
         <div class="order-menu-grid" id="order-menu-grid"></div>
       </div>
       <div class="cart-panel">
         <div class="cart-header">
-          <h3>🛒 CART</h3>
+          <h3>CART</h3>
         </div>
         <div class="cart-items" id="cart-items">
-          <div class="cart-empty"><div class="ce-icon">🧊</div><p>Add items to start an order</p></div>
+          <div class="cart-empty"><div class="ce-icon"></div><p>Add items to start an order</p></div>
         </div>
         <div class="cart-footer">
           <div class="customer-input">
-            <input class="input" id="customer-name" placeholder="👤 Customer name (optional)">
+            <input class="input" id="customer-name" placeholder="Customer name (optional)">
           </div>
           <div class="cart-extras">
             <input class="input" id="discount-val" type="number" placeholder="Discount %" min="0" max="100" step="1" oninput="renderCartTotals()">
@@ -154,7 +154,7 @@
           </div>
           <div class="cart-totals" id="cart-totals"></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-green btn-block" style="flex:1" onclick="generateBill()">🧾 Generate Bill</button>
+            <button class="btn btn-green btn-block" style="flex:1" onclick="generateBill()">Generate Bill</button>
             <button class="btn btn-danger btn-sm" onclick="clearCart()">🗑</button>
           </div>
         </div>
@@ -198,13 +198,13 @@
       <div id="bill-qr" style="margin-top:16px;display:flex;justify-content:center;"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" onclick="printBill()">🖨 Print Bill</button>
-      <button class="btn btn-accent" onclick="exportPDF()">📄 Save PDF</button>
-      <button class="btn btn-ghost" onclick="shareBill()">📤 Share</button>
+      <button class="btn btn-primary" onclick="printBill()">Print Bill</button>
+      <button class="btn btn-accent" onclick="exportPDF()">Save PDF</button>
+      <button class="btn btn-ghost" onclick="shareBill()">Share</button>
       <button class="btn btn-ghost" onclick="closeBillModal()">Close</button>
     </div>
     <div style="padding:0 24px 20px;font-size:12px;color:var(--muted);">
-      💡 <strong>Thermal Printer:</strong> Connect via Bluetooth/WiFi → Use your printer's app to print, or use browser print (Ctrl+P) → set paper size to 80mm.
+      <strong>Thermal Printer:</strong> Connect via Bluetooth/WiFi → Use your printer's app to print, or use browser print (Ctrl+P) → set paper size to 80mm.
     </div>
   </div>
 </div>
