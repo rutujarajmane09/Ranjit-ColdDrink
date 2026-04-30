@@ -156,7 +156,7 @@ function renderDashboard() {
   if(!state.items.length) { grid.innerHTML='<p style="color:var(--muted);grid-column:1/-1;">No items yet. Add some!</p>'; return; }
   grid.innerHTML = state.items.map(item=>`
     <div class="card menu-item-card">
-      <span class="item-emoji">${item.emoji}</span>
+      
       <div class="item-name">${item.name}</div>
       <div class="item-cat"><span class="badge badge-cyan">${item.cat}</span></div>
       <div class="item-price">${fmt(item.price)}</div>
@@ -239,7 +239,7 @@ function renderOrderMenu() {
   document.getElementById('order-menu-grid').innerHTML = filtered.length
     ? filtered.map(i=>`
         <button class="order-item-btn" onclick="addToCart('${i.id}')">
-          <span class="oi-emoji">${i.emoji}</span>
+          
           <div class="oi-name">${i.name}</div>
           <div class="oi-price">${fmt(i.price)}</div>
         </button>`).join('')
@@ -252,10 +252,10 @@ function addToCart(itemId) {
   const item = state.items.find(x=>x.id===itemId);
   const existing = state.cart.find(x=>x.id===itemId);
   if(existing) existing.qty++;
-  else state.cart.push({ id:itemId, name:item.name, price:item.price, emoji:item.emoji, qty:1 });
+  else state.cart.push({ id:itemId, name:item.name, price:item.price, qty:1 });
   renderCart();
   // micro-feedback
-  toast(`${item.emoji} ${item.name} added`,'success');
+  toast(`${item.name} added`,'success');
 }
 
 function changeQty(id, delta) {
@@ -278,7 +278,7 @@ function clearCart() {
 function renderCart() {
   const el = document.getElementById('cart-items');
   if(!state.cart.length) {
-    el.innerHTML='<div class="cart-empty"><div class="ce-icon">🧊</div><p>Add items to start an order</p></div>';
+    el.innerHTML='<div class="cart-empty"><div class="ce-icon"></div><p>Add items to start an order</p></div>';
     renderCartTotals(); return;
   }
   el.innerHTML = state.cart.map(ci=>`
