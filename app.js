@@ -63,6 +63,8 @@ function doLogin() {
   const u = document.getElementById('login-user').value.trim();
   const p = document.getElementById('login-pass').value.trim();
   if(u===CREDS.username && p===CREDS.password) {
+    // persist login until explicit logout
+    localStorage.setItem('loggedIn','true');
     document.getElementById('login-page').classList.remove('active');
     document.getElementById('app-page').classList.add('active');
     initApp();
@@ -80,6 +82,8 @@ function doLogout() {
   document.getElementById('login-page').classList.add('active');
   document.getElementById('login-user').value='';
   document.getElementById('login-pass').value='';
+  // remove persistent login flag
+  localStorage.removeItem('loggedIn');
   toast('Logged out');
 }
 
@@ -537,5 +541,13 @@ function renderSummary() {
 // ═══════════════════════════════
 // INIT
 // ═══════════════════════════════
-// Show login on load
-document.getElementById('login-page').classList.add('active');
+// Show login on load — restore session if persisted
+if (localStorage.getItem('loggedIn') === 'true') {
+  document.getElementById('login-page').classList.remove('active');
+  document.getElementById('app-page').classList.add('active');
+  initApp();
+  toast('Welcome back, Owner! 👋','success');
+} else {
+  document.getElementById('login-page').classList.add('active');
+  document.getElementById('app-page').classList.remove('active');
+}
