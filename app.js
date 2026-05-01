@@ -180,7 +180,7 @@ function toggleItemForm() {
 function cancelItemForm() { document.getElementById('item-form').style.display='none'; clearForm(); }
 
 function clearForm() {
-  ['f-name','f-price','f-emoji'].forEach(id=>document.getElementById(id).value='');
+  ['f-name','f-price'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='Cold Drinks';
   document.getElementById('f-edit-id').value='';
   document.getElementById('form-title').textContent='Add New Item';
@@ -190,16 +190,15 @@ function saveItem() {
   const name = document.getElementById('f-name').value.trim();
   const cat = document.getElementById('f-cat').value;
   const price = parseFloat(document.getElementById('f-price').value);
-  // const emoji = document.getElementById('f-emoji').value.trim() || '';
   const editId = document.getElementById('f-edit-id').value;
   if(!name) { toast('Item name is required','error'); return; }
   if(isNaN(price)||price<0) { toast('Enter a valid price','error'); return; }
   if(editId) {
     const i = state.items.findIndex(x=>x.id===editId);
-    state.items[i] = { id:editId, name, cat, price, emoji };
+    state.items[i] = { id:editId, name, cat, price };
     toast('Item updated ','success');
   } else {
-    state.items.push({ id:uid(), name, cat, price, emoji });
+    state.items.push({ id:uid(), name, cat, price });
     toast('Item added ','success');
   }
   save(); renderDashboard(); renderDashboardStats(); cancelItemForm();
@@ -210,7 +209,6 @@ function editItem(id) {
   document.getElementById('f-name').value = item.name;
   document.getElementById('f-cat').value = item.cat;
   document.getElementById('f-price').value = item.price;
-  document.getElementById('f-emoji').value = item.emoji;
   document.getElementById('f-edit-id').value = id;
   document.getElementById('form-title').textContent = '✏️ Edit Item';
   document.getElementById('item-form').style.display = 'block';
@@ -287,7 +285,7 @@ function renderCart() {
   }
   el.innerHTML = state.cart.map(ci=>`
     <div class="cart-row">
-      <span>${ci.emoji}</span>
+      <span>${ci.emoji||''}</span>
       <div style="flex:1">
         <div class="cr-name">${ci.name}</div>
         <div class="cr-price">${fmt(ci.price)} each → ${fmt(ci.price*ci.qty)}</div>
@@ -371,7 +369,7 @@ function showBillModal(order) {
 function buildBillHTML(order) {
   const items = order.items.map(i=>`
     <tr>
-      <td>${i.emoji} ${i.name}</td>
+      <td>${i.emoji||''} ${i.name}</td>
       <td>${i.qty}</td>
       <td>${fmt(i.price)}</td>
       <td>${fmt(i.price*i.qty)}</td>
@@ -405,7 +403,7 @@ function buildBillHTML(order) {
 
 function buildPrintHTML(order) {
   const items = order.items.map(i=>`
-    <div class="print-row"><span>${i.emoji} ${i.name} x${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>
+    <div class="print-row"><span>${i.emoji||''} ${i.name} x${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>
   `).join('');
   return `
     <div class="print-shop-name">${SHOP.name}</div>
@@ -476,7 +474,7 @@ function renderHistory() {
           <div class="order-total">${fmt(o.total)}</div>
         </div>
       </div>
-      <div class="order-items-list">${o.items.map(i=>`${i.emoji} ${i.name} ×${i.qty} (${fmt(i.price*i.qty)})`).join('  ·  ')}</div>
+      <div class="order-items-list">${o.items.map(i=>`${i.emoji||''} ${i.name} ×${i.qty} (${fmt(i.price*i.qty)})`).join('  ·  ')}</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         ${o.discAmt>0?`<span class="badge badge-orange">Discount ${o.disc}%</span>`:''}
         ${o.gstAmt>0?`<span class="badge badge-cyan">GST ${o.gst}%</span>`:''}
@@ -523,12 +521,12 @@ function renderSummary() {
       <div class="card stat-card"><div class="stat-val">${totalItems}</div><div class="stat-label">Items Sold</div></div>
       <div class="card stat-card"><div class="stat-val">${fmt(avgOrder)}</div><div class="stat-label">Avg Order Value</div></div>
     </div>
-    ${topItems.length ? `
+      ${topItems.length ? `
     <div class="card summary-card">
       <h3 style="margin-bottom:16px;font-size:18px;color:var(--frost);"> Item Breakdown</h3>
       ${topItems.map(i=>`
         <div class="summary-row">
-          <span>${i.emoji} ${i.name}</span>
+          <span>${i.emoji||''} ${i.name}</span>
           <span>${i.qty} sold</span>
           <span class="summary-val">${fmt(i.revenue)}</span>
         </div>
