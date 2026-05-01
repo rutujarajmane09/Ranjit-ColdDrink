@@ -201,7 +201,7 @@ function saveItem() {
     state.items.push({ id:uid(), name, cat, price });
     toast('Item added ','success');
   }
-  save(); renderDashboard(); renderDashboardStats(); cancelItemForm();
+  save(); renderDashboard(); renderDashboardStats(); renderOrderMenu(); cancelItemForm();
 }
 
 function editItem(id) {
@@ -210,7 +210,7 @@ function editItem(id) {
   document.getElementById('f-cat').value = item.cat;
   document.getElementById('f-price').value = item.price;
   document.getElementById('f-edit-id').value = id;
-  document.getElementById('form-title').textContent = '✏️ Edit Item';
+  document.getElementById('form-title').textContent = 'Edit Item';
   document.getElementById('item-form').style.display = 'block';
   document.getElementById('item-form').scrollIntoView({behavior:'smooth'});
 }
@@ -218,7 +218,7 @@ function editItem(id) {
 function deleteItem(id) {
   if(!confirm('Delete this item?')) return;
   state.items = state.items.filter(x=>x.id!==id);
-  save(); renderDashboard(); renderDashboardStats();
+  save(); renderDashboard(); renderDashboardStats(); renderOrderMenu();
   toast('Item deleted','info');
 }
 
